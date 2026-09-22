@@ -1,6 +1,6 @@
 # Robuste Hof-Disposition + Flottengröße – Streamlit-Demo
 
-**Lokal gebaut, noch nicht gepusht/deployed.**
+**[→ Demo live ausprobieren](https://sebastianhanisch-hofrobust-demo.streamlit.app/)**
 
 Interaktive Fall-Demo der Yard-Management-Linie: Ein Hof-Einsatzplan für Wechselbrücken kennt alle Fahraufträge im Voraus und plant vor - aber was, wenn ein **Hoffahrzeug ausfällt** oder die **Fahrzeiten
 schwanken**? Die Demo zeigt, wie unterschiedlich der starre Vorausplan je nach Störungsart bricht, was **reaktives Nachplanen** bringt, und wie viele Fahrzeuge der Hof braucht, damit sich das überhaupt lohnt
