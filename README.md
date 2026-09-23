@@ -174,6 +174,17 @@ prüfen deshalb Kennzahlen mit Abstand zur Schwelle, nie exakte Extremwerte verr
 - **Kontinuierlicher Störstärke-Regler ohne Stützpunkt-Absicherung** - nur 0/20/55 min bzw. 0/25/60 % sind gemessen, Zwischenwerte interpoliert.
 - Kopplung an Tor-Slots/andere Hafen-Module, Kante Minimum−1/−2 als eigener Regler-Bereich (nur Kontext im Text).
 
+## Verwandte Demos mit demselben mathematischen Modell
+
+Verschiedene Themen im Portfolio teilen (fast) dasselbe Modell. Vor einer neuen Demo-Idee deshalb das
+Modell vergleichen, nicht die Kulisse (Stand 2026-09-23):
+
+- **Starrer Plan gegen reaktives Nachplanen unter Störung** ist ein wiederkehrendes Muster: `fahrzeugflotte-demo`,
+  `robuste-kaiplatz-demo`, `blockzuweisung-demo` und `hofrobust-demo`. Der Twist von `hofrobust-demo`: am praktischen
+  Minimum hängt der Sieger von der Störungsart ab (Ausfall: reaktiv klar besser, Fahrzeit-Rauschen: Münzwurf). Ideen wie
+  robuste Touren bei unsicheren Standzeiten oder Same-Day-Aufträge im Nahverkehr (`vrp_demo`) wären das fünfte Exemplar
+  und nur mit einem Hook jenseits von "reaktiv gewinnt" sinnvoll.
+
 ## Lokal ausführen
 
 ```bash
