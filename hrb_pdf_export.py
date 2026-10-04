@@ -70,7 +70,7 @@ def generate_hrb_pdf(settings, day, base_instance, winner_table_data, curve=None
         pdf.set_text_color(0, 0, 0)
 
     pdf.set_font("Helvetica", "B", 16)
-    line("Robuste Hof-Disposition: Haelt der Einsatzplan die Stoerung aus?", 10)
+    line("Robuste Hof-Disposition: Hält der Einsatzplan die Störung aus?", 10)
     pdf.set_font("Helvetica", "", 9)
     pdf.set_text_color(120, 120, 120)
     line(f"Erstellt: {time.strftime('%d.%m.%Y %H:%M')}  -  sebastianhanisch.net", 6)
@@ -79,7 +79,7 @@ def generate_hrb_pdf(settings, day, base_instance, winner_table_data, curve=None
 
     s = settings
     strength = s["fail_duration"] if s["disruption"] == C.DISRUPTION_AUSFALL else s["noise_sigma"]
-    strength_unit = "min Ausfalldauer" if s["disruption"] == C.DISRUPTION_AUSFALL else "% Rauschstaerke"
+    strength_unit = "min Ausfalldauer" if s["disruption"] == C.DISRUPTION_AUSFALL else "% Rauschstärke"
     heading("Szenario")
     pairs([("Aufträge", f"{s['n_jobs']} Aufträge, Ø Fristpuffer {s['buffer']} min, Hoflänge {s['yard_length']} m"),
           ("Flotte", f"praktisches Minimum K = {day.kmin}, Abstand +{s['fleet_delta']}, eingesetzt {day.k} Fahrzeuge"),
