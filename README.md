@@ -7,7 +7,7 @@ schwanken**? Die Demo zeigt, wie unterschiedlich der starre Vorausplan je nach S
 (**praktisches Minimum**). Baut auf dem Fachmodell von `yard-demo` auf (Aufträge, Fristen, Anfahrtszeiten, FIFO/EDD/ATC, Vorausplanung per Iterated Local Search); die Flottenregler-Idee ("Abstand zum
 praktischen Minimum") ist dieselbe wie bei `fahrzeugflotte-demo`, hier nur als Analogie referenziert, keine gemeinsame Rechnung.
 
-Teil des Portfolios für die Website „Sebastian Hanisch – Operations Research und Machine Learning", verschmilzt zwei geprüfte Vorab-Check-Ideen (`hof-planung/vorab_robust`: Fahrzeugausfall,
+Teil des Portfolios für die Website „Sebastian Hanisch – Operations Research und Machine Learning“, verschmilzt zwei geprüfte Vorab-Check-Ideen (`hof-planung/vorab_robust`: Fahrzeugausfall,
 `hof-planung/vorab_flotte`: Flottengröße + Fahrzeit-Rauschen) zu **einer** Demo mit einem Umschalter, wie es der dritte Check `hof-planung/vorab_kombiniert` empfahl.
 
 ## Warum dieses Problem
@@ -35,7 +35,7 @@ der Störung nur nicht neu losfahren. Bricht die feste Vorausplan-Reihenfolge di
 **Störungsart 2 (Rauschen):** jede Anfahrt dauert ⌈t · (1 + σ·U)⌉ mit U ∈ [0, 1) und Störstärke σ (0-60 %), nur verspätend, je Ziel-Auftrag gezogen (gemeinsame Zufallszahlen für alle drei Strategien - gepaarter
 Vergleich). Wirkt nur auf die Leerfahrt, nicht auf Kupplung/Servicezeit (vereinfachte Annahme). Verschiebt nur Zeiten, macht die Reihenfolge nicht unmöglich - deshalb ein anderes Bruchmuster als der Ausfall.
 
-Formal im Expander „📐 Mathematische Formulierung" der App.
+Formal im Expander „📐 Mathematische Formulierung“ der App.
 
 ## Methodik – drei Strategien
 
@@ -112,13 +112,14 @@ größerer Stichprobe nachmessen"). Das ist hier geschehen (60 Tage, `tools/PRES
 
 ## Tests
 
-`python -m pytest tests/ -v` – **177 Tests**, lokal (Windows) rund 4 Minuten (keine feste Zeitgrenze außer je Mutant, siehe unten; die Minimum-Suche macht viele Tests rechenintensiv). Zusammensetzung:
+`python -m pytest tests/ -v` – **181 Tests**, lokal (Windows) rund 5 Minuten (keine feste Zeitgrenze außer je Mutant, siehe unten; die Minimum-Suche macht viele Tests rechenintensiv). Zusammensetzung:
 
 - **Szenario (`test_scenario.py`):** Determinismus, Unabhängigkeit von `n_vehicles`, gültige Aufträge/Fristen, Rauschfaktoren, Rundungsfalle als Test festgehalten.
 - **Dispatch (`test_dispatch.py`):** Regressionstest der `_from`-Erweiterung gegen den `yard-demo`-Fixpunkt ((0, None) reproduziert `sequence_cost`/`sequences_to_plan` exakt), Online-Regeln machbar und
   deterministisch, lokale Suche verschlechtert nie, Handrechnung.
 - **Störung (`test_disruption.py`):** Handrechnung aus `hof-planung/vorab_robust/hand_check.py` (starr=3, online=0, reaktiv=0 exakt), `check_feasible` auf jedem Endplan beider Störungsarten, reaktiv-Anteile
   statt strikter Invarianten (siehe "Befunde und Korrekturen"), gemeinsame Zufallszahlen je (Seed, Flottenabstand).
+- **Orakel (`test_oracle_hrb.py`):** kleinste verspätungsfreie Flotte per Teilmengen-DP (praktisches Minimum und Matching-Untergrenze schließen sie von oben und unten ein), Online-Regeln gegen eine Minutenschritt-Simulation (auch mit Ausfall), starrer Plan unter Ausfall und Rauschen gegen Neuausführung von Hand.
 - **Mindestflotte (`test_fleet.py`):** praktisches Minimum gegen Brute-Force auf Kleinstinstanzen, Matching-Untergrenze nie über dem Minimum, CP-SAT-Cross-Check.
 - **Auswertung (`test_evaluation.py`):** Kennzahlen, Perzentil/Verteilung, Verdikt mit künstlichen Daten (klar/uneindeutig, auch bei großem, aber verrauschtem Mittel), bedingte Meldung in allen vier Arten.
 - **Presets (`test_stories.py`, `test_preset_stories.py`):** künstliche Werte an jeder Schwelle; echte Daten (40 Tage, parallel gerechnet), Geschichte im Median UND am gezeigten Tag, Typizität je Kennzahl.
