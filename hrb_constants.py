@@ -22,9 +22,9 @@ BUFFER_RANGE, BUFFER_DEFAULT = (5, 60), 15  # Minuten, wie yard-demo
 YARD_LENGTH_RANGE, YARD_LENGTH_DEFAULT = (200, 900), 450  # Meter, wie yard-demo
 
 SEED_RANGE, SEED_DEFAULT = (0, 9999), 7039  # AP6: Kandidatenpool (7000-7059) gegen Grundgesamtheit 6000-6059
-# nachgemessen (tools/PRESET_SWEEP.md) - der Plan schlug Seed 4 vor, das trägt hier keine der fünf
+# nachgemessen (tools/PRESET_SWEEP.md) - der Plan schlug Seed 4 vor, das zeigt hier keine der fünf
 # Geschichten (siehe README "Befunde und Korrekturen"); 7039 ist der einzige Kandidat mit vernünftigem
-# Abstand zum Median, an dem alle fünf Presets tragen.
+# Abstand zum Median, an dem alle fünf Presets gelten.
 
 # --- Feste Modellannahmen (bewusst keine Regler, siehe Plan Abschnitt 5) ------------------------
 ARRIVAL_WINDOW = 120

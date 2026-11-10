@@ -1,5 +1,5 @@
 """Abnahmekriterien der Presets: welche Geschichte erzählt jedes Beispielszenario, und woran erkennt
-man, dass sie trägt? Einzige Quelle für `tools/tune_presets.py` (Abstimmung) und
+man, dass sie zutrifft? Einzige Quelle für `tools/tune_presets.py` (Abstimmung) und
 `tests/test_preset_stories.py` (Abnahme an echten Daten). Jedes Kriterium ist eine Aussage über ein
 Tupel von `SampleRow`s (hrb_evaluation) - über viele Tage (`criteria`) GENAUSO wie über den EINEN
 Tag, den das Preset zeigt (`holds`, ein Tupel mit einer Zeile). Deshalb bestehen alle Kriterien aus
@@ -18,7 +18,7 @@ markiert, nur 8 kombinierte Seeds aus vorab_kombiniert). Hier mit 60 unabhängig
     aber nicht allen Tagen noch gewinnt (35 % der 60 Tage), steht im README/PRESET_SWEEP als
     Zusatzbefund, ist aber kein Pass/Fail-Kriterium (siehe oben).
   - "Rauschen am Minimum": die im Plan behauptete Richtung ("starr robuster als online am Minimum")
-    trägt bei 60 unabhängigen Tagen NICHT verlässlich (Anteil "online gewinnt" 48 %, "starr gewinnt"
+    gilt bei 60 unabhängigen Tagen NICHT verlässlich (Anteil "online gewinnt" 48 %, "starr gewinnt"
     48 % - ein Münzwurf, auch bei über zehn Rauschziehungen je einzelnem Tag gemittelt). Das
     Kriterium prüft stattdessen ehrlich genau das: starr und online liegen nah beieinander (kein
     verlässlicher Sieger), aber reaktiv ist verlässlich besser als beide - siehe README."""

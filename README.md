@@ -13,7 +13,7 @@ Teil des Portfolios für die Website „Sebastian Hanisch – Operations Researc
 ## Warum dieses Problem
 
 Die naheliegende Geschichte wäre "starrer Plan bricht unter Störung, reaktives Nachplanen gewinnt" - das bekannte Muster aus `fahrzeugflotte-demo`, der Robusten Kaiplatzplanung und der Blockzuweisung. Sie
-trägt auch hier, aber mit einem **Twist, der die anderen drei Demos nicht haben**: Am **praktischen Minimum** widersprechen sich starr und online je nach **Störungsart**. Bei einem **Fahrzeugausfall** verliert
+gilt auch hier, aber mit einem **Twist, der die anderen drei Demos nicht haben**: Am **praktischen Minimum** widersprechen sich starr und online je nach **Störungsart**. Bei einem **Fahrzeugausfall** verliert
 der starre Plan klar gegen die beste Online-Regel (im Beispiel-Tag 3,57 gegen 0,92 min/Auftrag). Bei **Fahrzeit-Rauschen** gibt es am selben Punkt **keinen verlässlichen Sieger** zwischen starr und online -
 gemessen an 60 unabhängigen Tagen gewinnt online an 48 %, starr an 48 % (ein Münzwurf, siehe "Befunde und Korrekturen" unten). Nur **reaktiv** ist über beide Störungsarten und alle Flottenstufen hinweg
 verlässlich gut. Eine einzelne nahtlose Demo hätte diesen Gegensatz verwischt - deshalb der Umschalter Störungsart statt zwei getrennter kleiner Demos.
@@ -67,7 +67,7 @@ bzw. dem gezeigten Tag (Seed 7039), im Code dieser Demo selbst gerechnet und als
 | **Reaktiv ist der rote Faden** | Über 60 Tage (Ausfall, stark): reaktiv ≤ starr an ≥ 80 % der Tage, reaktiv ≤ online an ≥ 70 % - **keine strikte Invariante** (siehe unten). |
 | **Praktisches Minimum ist kein Beweis** | Matching-Untergrenze ≤ praktisches Minimum in allen 22 Cross-Checks (12 Kleinstinstanzen gegen Brute-Force + 10 größere gegen das praktische Minimum, nie verletzt), aber nur 6/12 exakt bei den Kleinstinstanzen (`tests/test_fleet.py`). |
 | **Rechenzeit** | Minimum-Suche rund 2 s je (Aufträge, Seed) bei kaltem Cache, danach gecacht; ein Tag rund 0,3-0,4 s; Stichprobe von 20 Tagen rund 45 s bei kaltem Cache (Fortschrittsbalken). |
-| **Presets** | Ein gemeinsamer Seed (**7039**) für alle fünf; jede Kennzahl zwischen dem 5. und 95. Perzentil der Grundgesamtheit. Von 60 Kandidaten tragen nur **2** alle fünf Geschichten gleichzeitig (`tools/PRESET_SWEEP.md`). |
+| **Presets** | Ein gemeinsamer Seed (**7039**) für alle fünf; jede Kennzahl zwischen dem 5. und 95. Perzentil der Grundgesamtheit. Von 60 Kandidaten zeigen nur **2** alle fünf Geschichten gleichzeitig (`tools/PRESET_SWEEP.md`). |
 
 ## Ehrliche Grenzen
 
@@ -86,18 +86,18 @@ bzw. dem gezeigten Tag (Seed 7039), im Code dieser Demo selbst gerechnet und als
 Der freigegebene Plan (`hof-planung/plan_hofrobust.py`/`.html`) beruhte auf nur **8 kombinierten Seeds** aus `vorab_kombiniert` und markierte seine Presets ausdrücklich als vorläufig ("in AP 6 selbst mit
 größerer Stichprobe nachmessen"). Das ist hier geschehen (60 Tage, `tools/PRESET_SWEEP.md`) - mit drei ehrlichen Korrekturen:
 
-- **"Rauschen am Minimum" trägt nicht wie im Plan behauptet.** Der Plan (8 Seeds) behauptete "am Minimum ist bei Rauschen der starre Plan robuster als online" (starr 2,13 gegen online 2,86 im 8-Seed-Mittel).
+- **"Rauschen am Minimum" gilt nicht wie im Plan behauptet.** Der Plan (8 Seeds) behauptete "am Minimum ist bei Rauschen der starre Plan robuster als online" (starr 2,13 gegen online 2,86 im 8-Seed-Mittel).
   Bei 60 unabhängigen Tagen zeigt sich: **kein verlässlicher Sieger** - online gewinnt an 48 % der Tage, starr an 48 %, ein Münzwurf, auch wenn man je Tag über zehn Rauschziehungen mittelt (die Richtung kippt
   von Seed zu Seed). Nur **reaktiv ist verlässlich am besten.** Der Text der App, das Preset und die Sieger-Tabelle sind entsprechend umformuliert ("Münzwurf" statt "starr ist robuster").
-- **Der im Plan vorgeschlagene Seed 4 trägt keine der fünf Preset-Geschichten.** Bei Seed 4 ist die Flotte am praktischen Minimum so leistungsfähig, dass starr = online = reaktiv = 0,0 min/Auftrag gilt - sowohl
+- **Der im Plan vorgeschlagene Seed 4 zeigt keine der fünf Preset-Geschichten.** Bei Seed 4 ist die Flotte am praktischen Minimum so leistungsfähig, dass starr = online = reaktiv = 0,0 min/Auftrag gilt - sowohl
   für Ausfall als auch für Rauschen (stark), siehe `hof-planung/vorab_kombiniert/rows.json`. Ersetzt durch **Seed 7039** (Kandidatenpool 7000-7059 gegen Grundgesamtheit 6000-6059 geprüft; von 60 Kandidaten
-  tragen nur 2 alle fünf Geschichten gleichzeitig).
+  zeigen nur 2 alle fünf Geschichten gleichzeitig).
 - **Die Invariante "reaktiv ≤ starr, reaktiv ≤ online, nie verletzt" aus dem Plan (Abschnitt 11) gilt nicht strikt.** Schon `vorab_robust/ERGEBNIS.md` selbst zeigt nur 150/200 bzw. 180/200 "reaktiv < starr",
   nicht 200/200. Grund: `simulate_rigid` nutzt eine **optimistische "wartet, dann fährt los"-Vereinfachung** - nach der erzwungenen Verzögerung auf `bend` wird keine erneute Anfahrtszeit mehr aufgeschlagen
   (siehe `feedback_interval_avoidance_vs_iterative_pushing`). Dadurch kann der starre Plan in Einzelfällen günstiger aussehen, als eine echte Neuplanung ab dem tatsächlichen (physikalisch korrekten) Zustand
   liefert. Die Tests prüfen deshalb einen Anteil (≥ 70-80 % der Tage), keine strikte Invariante (`tests/test_disruption.py`).
 - **Ein früherer Entwurf der Preset-Kriterien nutzte Tage-Anteile (`share_wins`) als Pass/Fail-Maß** - für den einen gezeigten Tag (ein Tupel der Länge 1) kann ein Anteil aber nur 0 % oder 100 % sein, nie z. B.
-  "zwischen 15 % und 50 %". Dadurch war `holds()` für jedes Preset unerfüllbar (0 von 60 Kandidaten trugen "Rauschen am Minimum" oder "Leichter Ausfall" an einem Einzeltag). Behoben: alle Kriterien in
+  "zwischen 15 % und 50 %". Dadurch war `holds()` für jedes Preset unerfüllbar (0 von 60 Kandidaten zeigten "Rauschen am Minimum" oder "Leichter Ausfall" an einem Einzeltag). Behoben: alle Kriterien in
   `hrb_stories.py` sind jetzt Median-/Mittelwert-Vergleiche, die für ein Tupel der Länge 1 auf den Einzelwert selbst zusammenfallen; die Tage-Anteile stehen nur noch als Dokumentation (`hrb_stories.share_*_wins`).
 - **"Leichter Ausfall" braucht den Mittelwert, nicht den Median** (der Plan formuliert die Geschichte selbst als Mittelwert-Aussage: "im Mittel liegt online schon vorn"). Bei so leichter Störung (20 min)
   bleiben die meisten Tage bei 0 Verspätung; der Median versteckt den Effekt (siehe `feedback_skewed_gains_show_distribution`).

@@ -1,4 +1,4 @@
-"""Abnahme der Presets an ECHTEN Daten: jede Geschichte trägt im Median/Mittel über 40 Tage (Seeds
+"""Abnahme der Presets an ECHTEN Daten: jede Geschichte gilt im Median/Mittel über 40 Tage (Seeds
 9000-9039; die Abstimmung in tools/PRESET_SWEEP.md nutzt 60) UND an dem einen Tag, den das Preset
 zeigt. Ohne Zeitlimit; geprüft werden Kennzahlen mit Abstand zur Schwelle."""
 
